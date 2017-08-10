@@ -21,12 +21,21 @@
     <ClInclude Include="stdafx.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="LVMUntility.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LVMCommands.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="LVM.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LVMUntility.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

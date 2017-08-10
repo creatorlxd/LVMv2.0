@@ -6,13 +6,8 @@ typedef Byte CommandTypeType;
 
 extern map<pair<CommandTypeType, int>, function<void(const vector<int>&)> > g_CommandRunner;
 
-#define REGISTERCOMMAND(str) template<CommandTypeType type, int size> \
-inline str(){g_CommandRunner.insert(make_pair(make_pair(str::type,str::size),str))}
-
-#define COMMANDTYPEACTION template<CommandTypeType type, int size>\
-inline void operator()(const vector<int>& m_Options)
-
-
+#define REGISTERCOMMAND(str)   str(){g_CommandRunner.insert(make_pair(make_pair(m_Type,m_Size),function<void(const vector<int>&)>(&Action)));}
+#define COMMANDACTION static void Action(const vector<int>& options)
 template<CommandTypeType type,int size>
 class BaseCommandType
 {
@@ -21,7 +16,7 @@ public:
 	static const CommandTypeType m_Type = type;
 	static const int m_Size = size;
 	
-	COMMANDTYPEACTION		//command type's action
+	COMMANDACTION		//command type's action
 	{
 
 	}
@@ -37,5 +32,5 @@ struct Command
 	vector<int> m_Options;
 };
 
-void ReadCommandByBinary(fstream& file, Command& c);
-void SaveCommandByBinary(fstream& file, Command& c);
+void ReadCommandByBinary(fstream& file,Command& c);
+void SaveCommandByBinary(fstream& file, const Command& c);

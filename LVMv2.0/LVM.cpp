@@ -23,8 +23,9 @@ void RunCommand(CommandTypeType type, int size, const vector<int>& m_Options)
 	}
 }
 
-void ReadCommandByBinary(fstream & file, Command & c)
+void ReadCommandByBinary(fstream & file,Command & c)
 {
+	c.m_Options.clear();
 	size_t size;
 	file.read((char*)&c.m_Type, sizeof(c.m_Type));
 	file.read((char*)&size, sizeof(size));
@@ -36,6 +37,13 @@ void ReadCommandByBinary(fstream & file, Command & c)
 	}
 }
 
-void SaveCommandByBinary(fstream & file, Command & c)
+void SaveCommandByBinary(fstream & file,const Command & c)
 {
+	size_t size = c.m_Options.size();
+	file.write((char*)&c.m_Type, sizeof(c.m_Type));
+	file.write((char*)&size, sizeof(size));
+	for (int i : c.m_Options)
+	{
+		file.write((char*)&i, sizeof(int));
+	}
 }
