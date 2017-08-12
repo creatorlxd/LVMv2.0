@@ -24,7 +24,7 @@
     <ClInclude Include="LVMUntility.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="LVMCommands.h">
+    <ClInclude Include="LVMCommands.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

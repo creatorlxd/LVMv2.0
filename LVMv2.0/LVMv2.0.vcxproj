@@ -140,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="LVM.h" />
-    <ClInclude Include="LVMCommands.h" />
+    <ClInclude Include="LVMCommands.hpp" />
     <ClInclude Include="LVMUntility.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
