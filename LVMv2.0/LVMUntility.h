@@ -45,7 +45,7 @@ class LVMRunner
 public:
 	void InitFromFile(const string& filename);
 	void Run();
-private:
+public:
 	Memory m_Memory;
 	CommandReader m_CommandReader;
 };

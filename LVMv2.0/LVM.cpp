@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "LVM.h"
 
-map<pair<CommandTypeType, int>, function<void(const vector<int>&)> > g_CommandRunner;
+map<pair<CommandTypeType, int>, function<void(LVMRunner&, const vector<int>&)> > g_CommandRunner;
 
 void ThrowError(const string & error)
 {
@@ -9,7 +9,7 @@ void ThrowError(const string & error)
 	abort();
 }
 
-void RunCommand(CommandTypeType type, int size, const vector<int>& m_Options)
+void RunCommand(LVMRunner& runner,CommandTypeType type, int size, const vector<int>& m_Options)
 {
 	auto f = g_CommandRunner.find(make_pair(type, size));
 	if (f == g_CommandRunner.end())
@@ -19,7 +19,7 @@ void RunCommand(CommandTypeType type, int size, const vector<int>& m_Options)
 	}
 	else
 	{
-		(*f).second(m_Options);
+		(*f).second(runner,m_Options);
 	}
 }
 

@@ -103,6 +103,6 @@ void LVMRunner::Run()
 	while (!m_CommandReader.IfEnd())
 	{
 		Command& c = m_CommandReader.GetCommand();
-		RunCommand(c.m_Type, c.m_Options.size(), c.m_Options);
+		RunCommand(*this,c.m_Type, c.m_Options.size(), c.m_Options);
 	}
 }

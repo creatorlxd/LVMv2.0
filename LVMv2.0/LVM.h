@@ -4,10 +4,13 @@
 typedef unsigned char Byte;
 typedef Byte CommandTypeType;
 
-extern map<pair<CommandTypeType, int>, function<void(const vector<int>&)> > g_CommandRunner;
+class LVMRunner;
 
-#define REGISTERCOMMAND(str)   str(){g_CommandRunner.insert(make_pair(make_pair(m_Type,m_Size),function<void(const vector<int>&)>(&Action)));}
-#define COMMANDACTION static void Action(const vector<int>& options)
+extern map<pair<CommandTypeType, int>, function<void(LVMRunner&,const vector<int>&)> > g_CommandRunner;
+
+
+#define REGISTERCOMMAND(str)   str(){g_CommandRunner.insert(make_pair(make_pair(m_Type,m_Size),function<void(LVMRunner&,const vector<int>&)>(&Action)));}
+#define COMMANDACTION static void Action(LVMRunner& runner,const vector<int>& options)
 template<CommandTypeType type,int size>
 class BaseCommandType
 {
@@ -24,7 +27,7 @@ public:
 
 void ThrowError(const string& error);
 
-void RunCommand(CommandTypeType type, int size,const vector<int>& m_Options);
+void RunCommand(LVMRunner& runner,CommandTypeType type, int size,const vector<int>& m_Options);
 
 struct Command
 {
