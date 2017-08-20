@@ -56,9 +56,9 @@ void CommandReader::InitFromFile(const string & filename)
 {
 	fstream file(filename.c_str(), ios::in | ios::binary);
 
-	int size;
+	unsigned int size;
 	Command buff;
-	file.read((char*)&size, sizeof(int));
+	file.read((char*)&size, sizeof(unsigned int));
 	for (int i = 0; i < size; i++)
 	{
 		ReadCommandByBinary(file, buff);
@@ -66,6 +66,11 @@ void CommandReader::InitFromFile(const string & filename)
 	}
 
 	file.close();
+}
+
+void CommandReader::InitFromMemory(const vector<Command>& data)
+{
+	m_Commands = data;
 }
 
 bool CommandReader::IfEnd()
@@ -77,8 +82,8 @@ void SaveCommandToFile(const string & filename, const vector<Command>& commands)
 {
 	fstream file(filename.c_str(), ios::out | ios::binary);
 
-	int size = commands.size();
-	file.write((char*)&size, sizeof(int));
+	unsigned int size = commands.size();
+	file.write((char*)&size, sizeof(unsigned int));
 
 	for (int i = 0; i < size; i++)
 	{

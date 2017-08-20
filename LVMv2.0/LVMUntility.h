@@ -23,6 +23,7 @@ public:
 	Command& GetCommand();
 	void Goto(int i);
 	void InitFromFile(const string& filename);
+	void InitFromMemory(const vector<Command>& data);
 	bool IfEnd();
 private:
 	vector<Command> m_Commands;

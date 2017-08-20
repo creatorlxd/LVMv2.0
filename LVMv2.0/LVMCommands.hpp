@@ -23,14 +23,21 @@ options
 COMMANDTYPE(ExitCommandType, 1, 0, { exit(0); })
 
 COMMANDTYPE(IntCommandType, 2, 2, {
-	*(int*)(runner.m_Memory.m_pMemory[options[0]]) = options[1];
+	*(int*)(&runner.m_Memory.m_pMemory[options[0]]) = options[1];
 })
 
 COMMANDTYPE(FloatCommmandType, 3, 2, {
-	*(float*)(runner.m_Memory.m_pMemory[options[0]]) = options[1];
+	*(float*)(&runner.m_Memory.m_pMemory[options[0]]) = options[1];
 })
 
 COMMANDTYPE(CharCommmandType, 4, 2, {
-	*(char*)(runner.m_Memory.m_pMemory[options[0]]) = options[1];
+	*(char*)(&runner.m_Memory.m_pMemory[options[0]]) = options[1];
 })
 
+COMMANDTYPE(ReadIntCommandType, 5, 1, {
+	cin >> *(int*)(&runner.m_Memory.m_pMemory[options[0]]);
+})
+
+COMMANDTYPE(PrintIntCommandType, 6, 1, {
+	cout<< *(int*)(&runner.m_Memory.m_pMemory[options[0]]);
+})
