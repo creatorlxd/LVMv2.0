@@ -5,12 +5,12 @@
 class Memory
 {
 public:
-	static const int m_Size=0xffffff;
+	static const int m_DefaultSize=0xffffff;
+	int m_Size;
 	Byte* m_pMemory;
 	Memory();
 	~Memory();
-	static Memory* GetMainMemory();
-	void SetAsMainMemory();
+	void Resize(unsigned int size);
 private:
 	static Memory* sm_pThis;
 };

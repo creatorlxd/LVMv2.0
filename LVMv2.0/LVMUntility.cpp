@@ -5,28 +5,23 @@ Memory* Memory::sm_pThis = nullptr;
 
 Memory::Memory()
 {
-	m_pMemory = new Byte[m_Size];
+	m_pMemory = new Byte[m_DefaultSize];
+	m_Size = m_DefaultSize;
 	memset(m_pMemory, 0, sizeof(Byte)*m_Size);
-	sm_pThis = this;
 }
 
 Memory::~Memory()
 {
 	delete[] m_pMemory;
-	if (sm_pThis == this)
-	{
-		sm_pThis = nullptr;
-	}
 }
 
-Memory * Memory::GetMainMemory()
+void Memory::Resize(unsigned int size)
 {
-	return sm_pThis;
-}
-
-void Memory::SetAsMainMemory()
-{
-	sm_pThis = this;
+	Byte* buff = new Byte[size];
+	memcpy(buff, m_pMemory, m_Size * sizeof(Byte));
+	delete[] m_pMemory;
+	m_pMemory = buff;
+	m_Size = size;
 }
 
 CommandReader::CommandReader()
