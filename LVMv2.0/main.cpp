@@ -7,9 +7,9 @@ int main()
 {
 	LVMRunner System;
 	System.m_CommandReader.InitFromMemory(vector<Command>{
-		Command{ 2,{0,1} },
-			Command{ 5,{0} },
-			Command{ 6,{0} }
+		Command{ 3,{0,1,2} },
+			Command{7,{0}},
+			Command{ 8,{0} }
 	});
 	System.Run();
 	return 0;

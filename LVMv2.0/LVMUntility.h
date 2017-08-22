@@ -46,7 +46,15 @@ class LVMRunner
 public:
 	void InitFromFile(const string& filename);
 	void Run();
+	template<typename T>
+	void SetContent(unsigned int addr,const T& content);
 public:
 	Memory m_Memory;
 	CommandReader m_CommandReader;
 };
+
+template<typename T>
+inline void LVMRunner::SetContent(unsigned int addr, const T & content)
+{
+	memcpy(&m_Memory.m_pMemory[addr], &content, sizeof(T));
+}

@@ -26,8 +26,17 @@ COMMANDTYPE(IntCommandType, 2, 2, {
 	*(int*)(&runner.m_Memory.m_pMemory[options[0]]) = options[1];
 })
 
-COMMANDTYPE(FloatCommmandType, 3, 2, {
-	*(float*)(&runner.m_Memory.m_pMemory[options[0]]) = options[1];
+COMMANDTYPE(FloatCommmandType, 3, 3, {
+	float buff=0;
+	stringstream ss;
+	ss << options[2];
+	string strbuff;
+	ss >> strbuff;
+	strbuff = "0." + strbuff;
+	ss << strbuff;
+	ss >> buff;
+	buff += options[1];
+	*(float*)(&runner.m_Memory.m_pMemory[options[0]]) = buff;
 })
 
 COMMANDTYPE(CharCommmandType, 4, 2, {
@@ -40,4 +49,20 @@ COMMANDTYPE(ReadIntCommandType, 5, 1, {
 
 COMMANDTYPE(PrintIntCommandType, 6, 1, {
 	cout<< *(int*)(&runner.m_Memory.m_pMemory[options[0]]);
+})
+
+COMMANDTYPE(ReadFloatCommandType, 7, 1, {
+	cin >> *(float*)(&runner.m_Memory.m_pMemory[options[0]]);
+})
+
+COMMANDTYPE(PrintFloatCommandType, 8, 1, {
+	cout << *(float*)(&runner.m_Memory.m_pMemory[options[0]]);
+})
+
+COMMANDTYPE(ReadCharCommandType, 9, 1, {
+	cin >> *(char*)(&runner.m_Memory.m_pMemory[options[0]]);
+})
+
+COMMANDTYPE(PrintCharCommandType, 10, 1, {
+	cout << *(char*)(&runner.m_Memory.m_pMemory[options[0]]);
 })

@@ -5,5 +5,6 @@
 #include <vector>
 #include <map>
 #include <functional>
+#include <sstream>
 
 using namespace std;
