@@ -20,6 +20,9 @@ runner
 options
 */
 
+#define Memory runner.m_Memory.m_pMemory
+#define IfPointer runner.m_Memory.m_pIfPointer
+
 COMMANDTYPE(ExitCommandType, 1, 0, { exit(0); })
 
 COMMANDTYPE(IntCommandType, 2, 2, {
@@ -27,16 +30,7 @@ COMMANDTYPE(IntCommandType, 2, 2, {
 })
 
 COMMANDTYPE(FloatCommmandType, 3, 3, {
-	float buff=0;
-	stringstream ss;
-	ss << options[2];
-	string strbuff;
-	ss >> strbuff;
-	strbuff = "0." + strbuff;
-	ss << strbuff;
-	ss >> buff;
-	buff += options[1];
-	*(float*)(&runner.m_Memory.m_pMemory[options[0]]) = buff;
+	*(float*)(&runner.m_Memory.m_pMemory[options[0]]) = stof(to_string(options[1])+"."+to_string(options[2]));
 })
 
 COMMANDTYPE(CharCommmandType, 4, 2, {

@@ -8,7 +8,6 @@ int main()
 	LVMRunner System;
 	System.m_CommandReader.InitFromMemory(vector<Command>{
 		Command{ 3,{0,1,2} },
-			Command{7,{0}},
 			Command{ 8,{0} }
 	});
 	System.Run();

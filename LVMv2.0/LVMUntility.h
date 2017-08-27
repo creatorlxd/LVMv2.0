@@ -8,6 +8,7 @@ public:
 	static const int m_DefaultSize=0xffffff;
 	int m_Size;
 	Byte* m_pMemory;
+	bool* m_pIfPointer;
 	Memory();
 	~Memory();
 	void Resize(unsigned int size);
@@ -51,6 +52,7 @@ public:
 public:
 	Memory m_Memory;
 	CommandReader m_CommandReader;
+	stack<bool> m_BoolStack;
 };
 
 template<typename T>

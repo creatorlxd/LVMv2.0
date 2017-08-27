@@ -6,5 +6,6 @@
 #include <map>
 #include <functional>
 #include <sstream>
+#include <stack>
 
 using namespace std;

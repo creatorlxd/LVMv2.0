@@ -6,21 +6,28 @@ Memory* Memory::sm_pThis = nullptr;
 Memory::Memory()
 {
 	m_pMemory = new Byte[m_DefaultSize];
+	m_pIfPointer = new bool[m_DefaultSize];
 	m_Size = m_DefaultSize;
 	memset(m_pMemory, 0, sizeof(Byte)*m_Size);
+	memset(m_pIfPointer, false, sizeof(bool)*m_Size);
 }
 
 Memory::~Memory()
 {
 	delete[] m_pMemory;
+	delete[] m_pIfPointer;
 }
 
 void Memory::Resize(unsigned int size)
 {
 	Byte* buff = new Byte[size];
+	bool* bbuff = new bool[size];
 	memcpy(buff, m_pMemory, m_Size * sizeof(Byte));
+	memcpy(bbuff, m_pIfPointer, m_Size * sizeof(bool));
 	delete[] m_pMemory;
+	delete[] m_pIfPointer;
 	m_pMemory = buff;
+	m_pIfPointer = bbuff;
 	m_Size = size;
 }
 
