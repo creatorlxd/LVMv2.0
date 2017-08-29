@@ -81,3 +81,21 @@ COMMANDTYPE(PopIntCommandType, 14, 1, {
 	*(int*)(&runner.m_Memory.m_pMemory[options[0]]) = IntStack.top();
 	IntStack.pop();
 })
+
+COMMANDTYPE(PushFloatCommandType, 15, 1, {
+	FloatStack.push(*(float*)(&runner.m_Memory.m_pMemory[options[0]]));
+})
+
+COMMANDTYPE(PopFloatCommandType, 16, 1, {
+	*(float*)(&runner.m_Memory.m_pMemory[options[0]]) = FloatStack.top();
+	FloatStack.pop();
+})
+
+COMMANDTYPE(PushCharCommandType, 17, 1, {
+	CharStack.push(*(char*)(&runner.m_Memory.m_pMemory[options[0]]));
+})
+
+COMMANDTYPE(PopCharCommandType, 18, 1, {
+	*(char*)(&runner.m_Memory.m_pMemory[options[0]]) = CharStack.top();
+	CharStack.pop();
+})
