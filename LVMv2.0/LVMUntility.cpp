@@ -109,7 +109,23 @@ void LVMRunner::Run()
 {
 	while (!m_CommandReader.IfEnd())
 	{
-		Command& c = m_CommandReader.GetCommand();
+		Command c = m_CommandReader.GetCommand();
+		//change macro to the normal number
+		if (c.m_Type != 11 && c.m_Type != 12)		// 11 == define macro ; 12 == undefine macro
+		{
+			int macro = 0;
+			do {
+				macro = 0;
+				for (int& i : c.m_Options)
+				{
+					if (m_Memory.m_pIfPointer[i])
+					{
+						i = *(reinterpret_cast<int*>(&m_Memory.m_pMemory[i]));
+						macro += 1;
+					}
+				}
+			} while (macro > 0);
+		}
 		RunCommand(*this,c.m_Type, c.m_Options.size(), c.m_Options);
 	}
 }

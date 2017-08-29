@@ -22,6 +22,10 @@ options
 
 #define Memory runner.m_Memory.m_pMemory
 #define IfPointer runner.m_Memory.m_pIfPointer
+#define BoolStack runner.m_BoolStack
+#define IntStack runner.m_IntStack
+#define FloatStack runner.m_FloatStack
+#define CharStack runner.m_CharStack
 
 COMMANDTYPE(ExitCommandType, 1, 0, { exit(0); })
 
@@ -59,4 +63,21 @@ COMMANDTYPE(ReadCharCommandType, 9, 1, {
 
 COMMANDTYPE(PrintCharCommandType, 10, 1, {
 	cout << *(char*)(&runner.m_Memory.m_pMemory[options[0]]);
+})
+
+COMMANDTYPE(DefineMacroCommandType, 11, 1, {
+	IfPointer[options[0]] = true;
+})
+
+COMMANDTYPE(UndefineMacroCommandType, 12, 1, {
+	IfPointer[options[0]] = false;
+})
+
+COMMANDTYPE(PushIntCommandType, 13, 1, {
+	IntStack.push(*(int*)(&runner.m_Memory.m_pMemory[options[0]]));
+})
+
+COMMANDTYPE(PopIntCommandType, 14, 1, {
+	*(int*)(&runner.m_Memory.m_pMemory[options[0]]) = IntStack.top();
+	IntStack.pop();
 })

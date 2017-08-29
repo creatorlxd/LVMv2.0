@@ -53,6 +53,9 @@ public:
 	Memory m_Memory;
 	CommandReader m_CommandReader;
 	stack<bool> m_BoolStack;
+	stack<int> m_IntStack;
+	stack<float> m_FloatStack;
+	stack<float> m_CharStack;
 };
 
 template<typename T>
