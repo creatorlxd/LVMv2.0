@@ -8,7 +8,7 @@ public:
 	static const int m_DefaultSize=0xffffff;
 	int m_Size;
 	Byte* m_pMemory;
-	bool* m_pIfPointer;
+	short* m_pFlag;
 	Memory();
 	~Memory();
 	void Resize(unsigned int size);
@@ -55,7 +55,7 @@ public:
 	stack<bool> m_BoolStack;
 	stack<int> m_IntStack;
 	stack<float> m_FloatStack;
-	stack<float> m_CharStack;
+	stack<char> m_CharStack;
 };
 
 template<typename T>
