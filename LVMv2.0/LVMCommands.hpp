@@ -134,3 +134,5 @@ COMMANDTYPE(NotCommandType, 35, 2, { *(reinterpret_cast<int*>(&Memory[options[0]
 PSMDM(AndCommandType,36,int,&)
 PSMDM(OrCommandType,37,int,|)
 PSMDM(NotOrCommandType,38,int,^)
+
+//TODO:float和int之间&int和char之间的相互转化;三个跳转;if分支&bool stack == < >
