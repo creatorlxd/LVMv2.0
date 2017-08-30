@@ -5,8 +5,8 @@
 class Memory
 {
 public:
-	static const int m_DefaultSize=0xffffff;
-	int m_Size;
+	static const unsigned int m_DefaultSize=0xffffff;
+	unsigned int m_Size;
 	Byte* m_pMemory;
 	short* m_pFlag;
 	Memory();

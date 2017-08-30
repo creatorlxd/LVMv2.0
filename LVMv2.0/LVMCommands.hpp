@@ -107,3 +107,30 @@ COMMANDTYPE(DefinePointerCommandType, 19, 1, {
 COMMANDTYPE(UndefinePointerCommandType, 20, 1, {
 	Flag[options[0]] = 0;
 })
+
+#define PSMDM(commandname,type,dtype,sign)\
+COMMANDTYPE(commandname,type,3,{	\
+	*(reinterpret_cast<dtype*>(&Memory[options[0]]))=*(reinterpret_cast<dtype*>(&Memory[options[1]]))##sign##(*(reinterpret_cast<dtype*>(&Memory[options[2]])));\
+})
+
+PSMDM(IntPlusCommandType, 21, int, +)
+PSMDM(IntSubCommandType, 22, int, -)
+PSMDM(IntMulCommandType, 23, int, *)
+PSMDM(IntDivCommandType, 24, int, / )
+PSMDM(IntModCommandType, 25, int, %)
+
+PSMDM(FloatPlusCommandType, 26, float, +)
+PSMDM(FloatSubCommandType, 27, float, -)
+PSMDM(FloatMulCommandType, 28, float, *)
+PSMDM(FloatDivCommandType, 29, float, / )
+
+PSMDM(CharPlusCommandType, 30, char, +)
+PSMDM(CharSubCommandType, 31, char, -)
+PSMDM(CharMulCommandType, 32, char, *)
+PSMDM(CharDivCommandType, 33, char, / )
+PSMDM(CharModCommandType, 34, char, %)
+
+COMMANDTYPE(NotCommandType, 35, 2, { *(reinterpret_cast<int*>(&Memory[options[0]])) = ~*(reinterpret_cast<int*>(&Memory[options[1]])); })
+PSMDM(AndCommandType,36,int,&)
+PSMDM(OrCommandType,37,int,|)
+PSMDM(NotOrCommandType,38,int,^)
