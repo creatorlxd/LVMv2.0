@@ -42,7 +42,7 @@ CommandReader::~CommandReader()
 
 Command & CommandReader::GetCommand()
 {
-	if (m_CommandListIndex == m_Commands.size())
+	if (m_CommandListIndex >= m_Commands.size())
 	{
 		ThrowError("get the end of the commands");
 		Goto(0);
@@ -82,7 +82,12 @@ void CommandReader::InitFromMemory(const vector<Command>& data)
 
 bool CommandReader::IfEnd()
 {
-	return (m_CommandListIndex==m_Commands.size()?true:false);
+	return (m_CommandListIndex>=m_Commands.size()?true:false);
+}
+
+int CommandReader::GetIndex()
+{
+	return m_CommandListIndex;
 }
 
 void SaveCommandToFile(const string & filename, const vector<Command>& commands)

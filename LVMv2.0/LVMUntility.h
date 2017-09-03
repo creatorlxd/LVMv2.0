@@ -26,6 +26,7 @@ public:
 	void InitFromFile(const string& filename);
 	void InitFromMemory(const vector<Command>& data);
 	bool IfEnd();
+	int GetIndex();
 private:
 	vector<Command> m_Commands;
 	int m_CommandListIndex;
@@ -56,6 +57,7 @@ public:
 	stack<int> m_IntStack;
 	stack<float> m_FloatStack;
 	stack<char> m_CharStack;
+	stack<int> m_LabelStack;
 };
 
 template<typename T>

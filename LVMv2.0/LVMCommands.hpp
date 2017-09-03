@@ -26,6 +26,7 @@ options
 #define IntStack runner.m_IntStack
 #define FloatStack runner.m_FloatStack
 #define CharStack runner.m_CharStack
+#define LabelStack runner.m_LabelStack
 
 COMMANDTYPE(ExitCommandType, 1, 0, { exit(0); })
 
@@ -171,4 +172,22 @@ COMMANDTYPE(MoveCommandType, 44, 3, {
 	memcpy(&Memory[options[1]],&Memory[options[0]],sizeof(Byte)*options[2]);
 	memset(&Memory[options[0]], NULL, sizeof(Byte)*options[2]);
 })
-//TODO:三个跳转;if分支&bool stack == < >
+
+COMMANDTYPE(GotoCommandType, 45, 1, {
+	runner.m_CommandReader.Goto(options[0]);
+})
+
+COMMANDTYPE(CallCommandType, 46, 1, {
+	LabelStack.push(runner.m_CommandReader.GetIndex());
+	runner.m_CommandReader.Goto(options[0]);
+})
+
+COMMANDTYPE(ReturnCommandType, 47, 0,{
+	if (!LabelStack.empty())
+	{
+		int to = LabelStack.top();
+		LabelStack.pop();
+		runner.m_CommandReader.Goto(to);
+	}
+})
+//TODO:if分支&bool stack == < >
