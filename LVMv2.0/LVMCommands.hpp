@@ -135,4 +135,40 @@ PSMDM(AndCommandType,36,int,&)
 PSMDM(OrCommandType,37,int,|)
 PSMDM(NotOrCommandType,38,int,^)
 
-//TODO:float和int之间&int和char之间的相互转化;三个跳转;if分支&bool stack == < >
+COMMANDTYPE(IntToFloatCommandType, 39, 2, 
+{
+	int content = *(int*)(&Memory[options[0]]);
+	float fc = (float)(content);
+	memcpy(&Memory[options[1]], &fc, sizeof(float));
+})
+
+COMMANDTYPE(FloatToIntCommandType, 40, 2,
+{
+	float content = *(float*)(&Memory[options[0]]);
+	int ic = (int)(content);
+	memcpy(&Memory[options[1]], &ic, sizeof(int));
+})
+
+COMMANDTYPE(IntToCharCommandType, 41, 2, 
+{
+	int content = *(int*)(&Memory[options[0]]);
+	char cc = (char)(content);
+	memcpy(&Memory[options[1]], &cc, sizeof(char));
+})
+
+COMMANDTYPE(CharToIntCommandType, 42, 2,
+{
+	char content = *(char*)(&Memory[options[0]]);
+	int ic = (int)(content);
+	memcpy(&Memory[options[1]], &ic, sizeof(int));
+})
+
+COMMANDTYPE(CopyCommandType, 43, 3, {
+	memcpy(&Memory[options[1]],&Memory[options[0]],sizeof(Byte)*options[2]);
+})
+
+COMMANDTYPE(MoveCommandType, 44, 3, {
+	memcpy(&Memory[options[1]],&Memory[options[0]],sizeof(Byte)*options[2]);
+	memset(&Memory[options[0]], NULL, sizeof(Byte)*options[2]);
+})
+//TODO:三个跳转;if分支&bool stack == < >
