@@ -12,6 +12,8 @@ public:
 	Memory();
 	~Memory();
 	void Resize(unsigned int size);
+
+	vector<int> GetIntArray(unsigned int addr);
 private:
 	static Memory* sm_pThis;
 };
@@ -50,6 +52,7 @@ public:
 	void Run();
 	template<typename T>
 	void SetContent(unsigned int addr,const T& content);
+	void Invoke(int fa, int num, const vector<int>& options);
 public:
 	Memory m_Memory;
 	CommandReader m_CommandReader;
@@ -58,8 +61,9 @@ public:
 	stack<float> m_FloatStack;
 	stack<char> m_CharStack;
 	stack<int> m_LabelStack;
+	vector < vector<pair<function<void(LVMRunner&, vector<int>)>,unsigned int>>> m_ExternLibrary;
 };
-
+typedef vector<pair<function<void(LVMRunner&, vector<int>)>, unsigned int>> ExternLibray;
 template<typename T>
 inline void LVMRunner::SetContent(unsigned int addr, const T & content)
 {

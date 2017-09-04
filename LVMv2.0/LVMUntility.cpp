@@ -31,6 +31,25 @@ void Memory::Resize(unsigned int size)
 	m_Size = size;
 }
 
+vector<int> Memory::GetIntArray(unsigned int addr)
+{
+	if (addr >= m_Size)
+	{
+		ThrowError("the address is too more than memory's size"); 
+		return vector<int>();
+	}
+	else
+	{
+		vector<int> ans;
+		int size = *(int*)(&m_pMemory[addr]);
+		for (int i = 1; i <= size; i++)
+		{
+			ans.push_back(*(int*)(&m_pMemory[addr + i * 4]));
+		}
+		return ans;
+	}
+}
+
 CommandReader::CommandReader()
 {
 	m_CommandListIndex = 0;
@@ -140,4 +159,12 @@ void LVMRunner::Run()
 		}
 		RunCommand(*this,c.m_Type, c.m_Options.size(), c.m_Options);
 	}
+}
+
+void LVMRunner::Invoke(int fa, int num, const vector<int>& options)
+{
+	if (options.size() == m_ExternLibrary[fa][num].second)
+		m_ExternLibrary[fa][num].first(*this, options);
+	else
+		ThrowError("the option's size is error");
 }

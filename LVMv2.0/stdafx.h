@@ -7,5 +7,6 @@
 #include <functional>
 #include <sstream>
 #include <stack>
+#include <cstdlib>
 
 using namespace std;

@@ -28,6 +28,8 @@ options
 #define CharStack runner.m_CharStack
 #define LabelStack runner.m_LabelStack
 
+COMMANDTYPE(NullCommandType, 0, 0, {})
+
 COMMANDTYPE(ExitCommandType, 1, 0, { exit(0); })
 
 COMMANDTYPE(IntCommandType, 2, 2, {
@@ -189,5 +191,85 @@ COMMANDTYPE(ReturnCommandType, 47, 0,{
 		LabelStack.pop();
 		runner.m_CommandReader.Goto(to);
 	}
+})
+
+COMMANDTYPE(IfCommandType, 48, 3, {
+	int i = 0;
+	bool b = true;
+	while ((!BoolStack.empty())&&i<options[2])
+	{
+		b = b&BoolStack.top();
+		BoolStack.pop();
+		i += 1;
+	}
+	if (b)
+	{
+		runner.m_CommandReader.Goto(options[0]);
+	}
+	else
+	{
+		runner.m_CommandReader.Goto(options[1]);
+	}
+})
+
+COMMANDTYPE(LogicAndCommandType, 49, 0, {
+	if (BoolStack.size() >= 2)
+	{
+		bool b1 = BoolStack.top();
+		BoolStack.pop();
+		bool b2 = BoolStack.top();
+		BoolStack.pop();
+
+		bool b = b1&b2;
+		BoolStack.push(b);
+	}
+})
+
+COMMANDTYPE(LogicOrCommandType, 50, 0,{
+	if (BoolStack.size() >= 2)
+	{
+		bool b1 = BoolStack.top();
+		BoolStack.pop();
+		bool b2 = BoolStack.top();
+		BoolStack.pop();
+
+		bool b = b1|b2;
+		BoolStack.push(b);
+	}
+})
+
+COMMANDTYPE(LogicNotCommandType, 51, 0, {
+	if (BoolStack.size() >= 1)
+	{
+		bool b = BoolStack.top();
+		BoolStack.pop();
+		b = (b==true ? false : true);
+		BoolStack.push(b);
+	}
+})
+
+COMMANDTYPE(EqualCommandType, 52, 3, {
+	if (memcmp(&Memory[options[0]],&Memory[options[1]],sizeof(Byte)*options[2]) == 0)
+		BoolStack.push(true);
+	else
+		BoolStack.push(false);
+})
+
+COMMANDTYPE(LessCommandType, 53, 3, {
+	if (memcmp(&Memory[options[0]],&Memory[options[1]],sizeof(Byte)*options[2]) < 0)
+		BoolStack.push(true);
+	else
+		BoolStack.push(false);
+})
+
+COMMANDTYPE(MoreCommandType, 54, 3, {
+	if (memcmp(&Memory[options[0]],&Memory[options[1]],sizeof(Byte)*options[2]) > 0)
+		BoolStack.push(true);
+	else
+		BoolStack.push(false);
+})
+
+COMMANDTYPE(InvokeCommandType, 55, 3, {
+	runner.Invoke(options[0],options[1],runner.m_Memory.GetIntArray(options[2]));
 })
 //TODO:if∑÷÷ß&bool stack == < >
