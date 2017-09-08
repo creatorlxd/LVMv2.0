@@ -3,7 +3,7 @@
 #include "LVMUntility.h"
 #include "LVMCommands.hpp"
 
-int main()
+int main(int argc,char** argv)
 {
 	string filename;
 	if (argc == 2)
